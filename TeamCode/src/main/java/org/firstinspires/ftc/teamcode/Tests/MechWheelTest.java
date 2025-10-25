@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Tests;
 
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_BL_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_BR_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_FL_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_FR_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.initPower;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BL_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BR_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_FL_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_FR_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.initPower;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Config.Drivetrain;
 
 @Disabled // Disable When done testing
 @TeleOp(name = "MecanumWheelsTest", group = "TeleOp")

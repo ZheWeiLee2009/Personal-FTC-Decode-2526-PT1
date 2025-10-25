@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Tests;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -9,10 +9,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Config.Drivetrain;
 
 @Disabled
 @TeleOp(name = "MotorVerification", group = "TeleOp")
-public class TeleOpTesting extends LinearOpMode {
+public class MotorVerification extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     Drivetrain bot;
 

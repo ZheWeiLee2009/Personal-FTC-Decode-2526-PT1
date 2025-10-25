@@ -1,15 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Config;
 
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_BL_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_BR_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_FL_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.c_FR_WeightTuning;
-import static org.firstinspires.ftc.teamcode.RobotConstants.FLYWHEEL_Full;
-import static org.firstinspires.ftc.teamcode.RobotConstants.FLYWHEEL_Half;
-import static org.firstinspires.ftc.teamcode.RobotConstants.FLYWHEEL_OFF;
-import static org.firstinspires.ftc.teamcode.RobotConstants.INTAKE_Full;
-import static org.firstinspires.ftc.teamcode.RobotConstants.INTAKE_Half;
-import static org.firstinspires.ftc.teamcode.RobotConstants.INTAKE_OFF;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BL_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BR_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_FL_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_FR_WeightTuning;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.FLYWHEEL_Full;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.FLYWHEEL_Half;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.FLYWHEEL_OFF;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.INTAKE_Full;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.INTAKE_Half;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.INTAKE_OFF;
 
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,10 +18,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +26,7 @@ import java.util.List;
 public class Drivetrain {
 
     HardwareMap hwMap;
-    GoBildaPinpointDriver odo;
+    public GoBildaPinpointDriver odo;
 
     public double oldTime=0;
 

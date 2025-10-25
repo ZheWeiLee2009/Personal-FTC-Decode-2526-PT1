@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Config.Drivetrain; // Robo Config
 
 @TeleOp(name = "Universal TeleOP", group = "TeleOp")
 public class UniTeleOp extends OpMode {
