@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Config.Drivetrain;
 import java.util.Locale;
 
 @Disabled
-@TeleOp(name = "Odo Tracker", group = "TeleOp")
+@TeleOp(name = "Odo Tracker", group = "Tests")
 public class OdoTracker extends OpMode {
     Drivetrain bot;
 

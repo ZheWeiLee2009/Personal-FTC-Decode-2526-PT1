@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Config.Drivetrain;
 
 @Disabled
-@TeleOp(name = "MotorVerification", group = "TeleOp")
+@TeleOp(name = "MotorVerification", group = "Tests")
 public class MotorVerification extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     Drivetrain bot;

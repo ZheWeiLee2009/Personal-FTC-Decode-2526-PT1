@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_DriveSpeed;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -11,12 +13,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Config.Drivetrain; // Robo Config
 
-@TeleOp(name = "Universal TeleOP", group = "TeleOp")
+@TeleOp(name = "Universal TeleOP", group = ".")
 public class UniTeleOp extends OpMode {
     Drivetrain bot;
 
     private ElapsedTime opmodeTimer = new ElapsedTime();
-    private double SPEED_MULTIPLIER = 0.9;
+    private double SPEED_MULTIPLIER = c_DriveSpeed;
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
     Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -27,7 +29,7 @@ public class UniTeleOp extends OpMode {
         opmodeTimer.reset();
 
         bot = new Drivetrain(hardwareMap, opmodeTimer);
-
+        bot.setServoPos("Off");
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
     }
 
@@ -74,9 +76,19 @@ public class UniTeleOp extends OpMode {
             bot.setIntake("off");
         }
 
+        // Gate
+        if (gamepad1.leftBumperWasPressed()) {
+            bot.setServoPos("Off");
+        } else {
+            bot.setServoPos("On");
+        }
+
+
         // Telemetry
         telemetry.addData("Flywheel: ", bot.Flywheel.getPower());
         telemetry.addData("Intake: ", bot.Intake.getPower());
+        telemetry.addData("Gate: ", bot.Gate.getPosition());
+
         telemetry.addData("\nFL: ", bot.leftFrontDrive.getPower());
         telemetry.addData("BL: ", bot.leftBackDrive.getPower());
         telemetry.addData("FR: ", bot.rightFrontDrive.getPower());

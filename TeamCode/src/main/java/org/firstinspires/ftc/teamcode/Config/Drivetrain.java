@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Config;
 
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.Gate_Off;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.Gate_On;
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BL_WeightTuning;
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BR_WeightTuning;
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_FL_WeightTuning;
@@ -14,6 +16,7 @@ import static org.firstinspires.ftc.teamcode.Config.RobotConstants.INTAKE_OFF;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -39,6 +42,7 @@ public class Drivetrain {
     // Aux
     public DcMotorEx Flywheel, Intake;
 
+    public Servo Gate;
     // States
     public String flywheelState, intakeState;
 
@@ -56,6 +60,8 @@ public class Drivetrain {
         // Aux
         Intake = hwMap.get(DcMotorEx.class,"Intake");
         Flywheel = hwMap.get(DcMotorEx.class,"Flywheel");
+
+        Gate = hwMap.get(Servo.class, "Gate");
 
         // Odometry Computer
         odo = hwMap.get(GoBildaPinpointDriver.class, "POC");
@@ -99,6 +105,21 @@ public class Drivetrain {
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zpb) {
         for (DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(zpb);
+        }
+    }
+
+    public void setServoPos(String dir) {
+        switch (dir) {
+            case "On":
+                Gate.setPosition(Gate_On);
+                break;
+            case "Off":
+                Gate.setPosition(Gate_Off);
+                break;
+            default:
+                // redundancy
+                Gate.setPosition(Gate_Off);
+                break;
         }
     }
 

@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Config.Drivetrain;
 
 @Disabled // Disable When done testing
-@TeleOp(name = "MecanumWheelsTest", group = "TeleOp")
+@TeleOp(name = "MecanumWheelsTest", group = "Tests")
 public class MechWheelTest extends OpMode {
     Drivetrain bot;
 
