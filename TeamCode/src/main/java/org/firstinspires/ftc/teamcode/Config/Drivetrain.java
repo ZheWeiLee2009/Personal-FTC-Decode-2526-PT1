@@ -108,18 +108,11 @@ public class Drivetrain {
         }
     }
 
-    public void setServoPos(String dir) {
-        switch (dir) {
-            case "On":
-                Gate.setPosition(Gate_On);
-                break;
-            case "Off":
-                Gate.setPosition(Gate_Off);
-                break;
-            default:
-                // redundancy
-                Gate.setPosition(Gate_Off);
-                break;
+    public void setServoPos(Boolean dir) {
+        if (!dir) {
+            Gate.setPosition(Gate_On);
+        } else {// redundancy
+            Gate.setPosition(Gate_Off);
         }
     }
 

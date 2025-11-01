@@ -15,7 +15,7 @@ public class RobotConstants {
     public static double INTAKE_OFF = 0;
 
     public static double Gate_Off = 0.0;
-    public static double Gate_On = 1.0;
+    public static double Gate_On = .27;
 
     public static double c_DriveSpeed = 0.9;
     public static double c_FL_WeightTuning = 1.0;
@@ -23,6 +23,8 @@ public class RobotConstants {
     public static double c_BL_WeightTuning = 1.0;
     public static double c_BR_WeightTuning = 1.0;
 
+    public static int recoveryPause = 190; // ms
+    public static int recoveryDelay = 1000; //ms
 
     public static final double initPower = 0.5;
 }

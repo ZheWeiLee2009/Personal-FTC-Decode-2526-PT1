@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_DriveSpeed;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.recoveryDelay;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.recoveryPause;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -18,20 +20,27 @@ public class UniTeleOp extends OpMode {
     Drivetrain bot;
 
     private ElapsedTime opmodeTimer = new ElapsedTime();
+    private ElapsedTime gateTimer = new ElapsedTime();
     private double SPEED_MULTIPLIER = c_DriveSpeed;
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
     Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
+    private boolean GateState = true;
+    private boolean isWaitingGateState = false;
+
+    private int MAX_CYCLES = 3;
+    private int cycleCounter = 0;
 
     @Override
     public void init() {
         opmodeTimer.reset();
 
         bot = new Drivetrain(hardwareMap, opmodeTimer);
-        bot.setServoPos("Off");
+        bot.setServoPos(true);
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
     }
+
 
     @Override
     public void start() {
@@ -76,18 +85,65 @@ public class UniTeleOp extends OpMode {
             bot.setIntake("off");
         }
 
-        // Gate
-        if (gamepad1.leftBumperWasPressed()) {
-            bot.setServoPos("Off");
-        } else {
-            bot.setServoPos("On");
+        // Gate single
+        if (gamepad1.leftBumperWasPressed() && gateTimer.milliseconds() >= recoveryPause) {
+            GateState = isWaitingGateState;
+            bot.setServoPos(GateState);
+            if (!isWaitingGateState) {
+                gateTimer.reset();
+            } else {
+                cycleCounter =0;
+            }
+            isWaitingGateState = !isWaitingGateState;
         }
 
+        // Gate multi
+        if (gamepad1.rightBumperWasPressed() && gateTimer.milliseconds() >= recoveryPause){
+            GateState = isWaitingGateState;
+            bot.setServoPos(GateState);
+            if (!isWaitingGateState) {
+                gateTimer.reset();
+                cycleCounter = 1; // Start multi-cycle
+            } else {
+                cycleCounter = 0; // Cancel cycles
+            }
+            isWaitingGateState = !isWaitingGateState;
+        }
+
+        // Check
+        if (isWaitingGateState && gateTimer.milliseconds() >= recoveryPause) {
+            GateState = true;
+            bot.setServoPos(true);
+            isWaitingGateState = false;
+
+            if (cycleCounter > 0 && cycleCounter < MAX_CYCLES) {
+                cycleCounter++;
+                gateTimer.reset();
+            } else {
+                cycleCounter = 0;
+            }
+        }
+        // multi cycle Continuation
+
+        if (!isWaitingGateState && cycleCounter > 0 && gateTimer.milliseconds() >= recoveryDelay) {
+            GateState = false;
+            bot.setServoPos(false);
+            isWaitingGateState = true;
+            gateTimer.reset();
+        }
+
+        // redundancy
+        if (GateState) {
+            bot.setServoPos(true);
+        }
 
         // Telemetry
         telemetry.addData("Flywheel: ", bot.Flywheel.getPower());
         telemetry.addData("Intake: ", bot.Intake.getPower());
-        telemetry.addData("Gate: ", bot.Gate.getPosition());
+        telemetry.addData("GatePOS: ", bot.Gate.getPosition());
+        telemetry.addData("GateTimer:", gateTimer.milliseconds());
+        telemetry.addData("GateState", GateState);
+        telemetry.addData("GatePause:", recoveryPause);
 
         telemetry.addData("\nFL: ", bot.leftFrontDrive.getPower());
         telemetry.addData("BL: ", bot.leftBackDrive.getPower());
@@ -108,6 +164,9 @@ public class UniTeleOp extends OpMode {
         dashboardTelemetry.addData("FR: ", bot.rightFrontDrive.getPower());
         dashboardTelemetry.addData("BR: ", bot.rightBackDrive.getPower());
 
+        dashboardTelemetry.addData("\nGateTimer:", gateTimer.milliseconds());
+        dashboardTelemetry.addData("GateState", GateState);
+        dashboardTelemetry.addData("GatePause:", recoveryPause);
 
         telemetry.addData("\n\n Power: ", SPEED_MULTIPLIER);
 
