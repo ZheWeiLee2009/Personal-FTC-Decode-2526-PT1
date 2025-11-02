@@ -10,8 +10,8 @@ public class RobotConstants {
     public static double FLYWHEEL_Half = 0.8;
     public static double FLYWHEEL_OFF = 0;
 
-    public static double INTAKE_Full = 0.6;
-    public static double INTAKE_Half = 0.3;
+    public static double INTAKE_Full = 0.9;
+    public static double INTAKE_Half = 0.6;
     public static double INTAKE_OFF = 0;
 
     public static double Gate_Off = 0.0;
