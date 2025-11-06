@@ -5,6 +5,6 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class OdometryConstants {
 
-    public static double odoOffsetX = 300.0;
-    public static double odoOffsetY = 37.0;
+    public static double odoOffsetX = 50.8;
+    public static double odoOffsetY = 152.4;
 }

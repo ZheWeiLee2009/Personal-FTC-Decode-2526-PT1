@@ -10,8 +10,8 @@ public class RobotConstants {
     public static double FLYWHEEL_Half = 0.8;
     public static double FLYWHEEL_OFF = 0;
 
-    public static double INTAKE_Full = 0.6;
-    public static double INTAKE_Half = 0.3;
+    public static double INTAKE_Full = 0.8;
+    public static double INTAKE_Half = 0.6;
     public static double INTAKE_OFF = 0;
 
     public static double Gate_Off = 0.0;
@@ -23,8 +23,8 @@ public class RobotConstants {
     public static double c_BL_WeightTuning = 1.0;
     public static double c_BR_WeightTuning = 1.0;
 
-    public static int recoveryPause = 190; // ms
-    public static int recoveryDelay = 1000; //ms
+    public static int recoveryPause = 167; // ms
+    public static int recoveryDelay = 1475; //ms
 
     public static final double initPower = 0.5;
 }
