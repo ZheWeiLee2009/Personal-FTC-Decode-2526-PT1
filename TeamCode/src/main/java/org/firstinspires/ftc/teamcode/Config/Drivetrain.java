@@ -114,18 +114,18 @@ public class Drivetrain {
         }
     }
 
-    public void setFlywheel(String dir) {
+    public void setFlywheel(String dir, double offset) {
         switch (dir) {
             case "full":
-                Flywheel.setPower(FLYWHEEL_Full);
+                Flywheel.setPower(FLYWHEEL_Full + offset);
                 flywheelState = "full";
                 break;
             case "half":
-                Flywheel.setPower(FLYWHEEL_Half);
+                Flywheel.setPower(FLYWHEEL_Half + offset);
                 flywheelState = "half";
                 break;
             case "off":
-                Flywheel.setPower(FLYWHEEL_OFF);
+                Flywheel.setPower(FLYWHEEL_OFF + offset);
                 flywheelState = "off";
                 break;
         }

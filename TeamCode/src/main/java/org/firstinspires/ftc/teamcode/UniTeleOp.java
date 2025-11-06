@@ -32,6 +32,8 @@ public class UniTeleOp extends OpMode {
     private int MAX_CYCLES = 3;
     private int cycleCounter = 0;
 
+    private double flyWheelOffset = 0;
+
     @Override
     public void init() {
         opmodeTimer.reset();
@@ -73,11 +75,18 @@ public class UniTeleOp extends OpMode {
 
         // Flywheel
         if (gamepad1.dpad_right) {
-            bot.setFlywheel("full");
+            bot.setFlywheel("full", flyWheelOffset);
         } else if (gamepad1.dpad_up) {
-            bot.setFlywheel("half");
+            bot.setFlywheel("half", flyWheelOffset);
         } else if (gamepad1.dpad_left) {
-            bot.setFlywheel("off");
+            bot.setFlywheel("off", 0);
+        }
+
+        // Flywheel Offsets
+        if (gamepad2.circle) {
+            flyWheelOffset +=1;
+        } else if (gamepad2.square){
+            flyWheelOffset -=1;
         }
 
         // Intake
