@@ -41,6 +41,7 @@ public class FOTeleOp extends OpMode {
 
     private int MAX_CYCLES = 3;
     private int cycleCounter = 0;
+    private int flyWheelOffset = 0;
 
 
 
@@ -90,19 +91,14 @@ public class FOTeleOp extends OpMode {
 //        double[] powers = bot.calculateMotorPowers(y,x,rx);
         double[] powers = FOcalc.calculateFODMotorPowers(y,x,rx, odometry.robotPos().getHeading(AngleUnit.RADIANS));
         bot.setMotorPowers(powers[0], powers[1], powers[2], powers[3], SPEED_MULTIPLIER);
-
-
-
-
         // ************* FlyWheel **************//
         // Flywheel
         if (gamepad1.dpad_right) {
-            bot.setFlywheel("full");
+            bot.setFlywheel("full", flyWheelOffset);
         } else if (gamepad1.dpad_up) {
-            bot.setFlywheel("half");
+            bot.setFlywheel("half", flyWheelOffset);
         } else if (gamepad1.dpad_left) {
-            bot.setFlywheel("off");
-        }
+            bot.setFlywheel("off", 0);
 
         // ************* Intake **************//
         // Intake
@@ -207,4 +203,4 @@ public class FOTeleOp extends OpMode {
         dashboardTelemetry.update();
 
     }
-}
+}}

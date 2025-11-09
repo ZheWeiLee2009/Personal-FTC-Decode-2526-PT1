@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
+import com.pedropathing.control.PIDFCoefficients;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.ftc.FollowerBuilder;
@@ -13,10 +14,23 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Constants {
+    /*
+    Translational PIDF:
+
+    P = 0.06
+    I = ??
+    D = ??
+    F = ??
+    */
+
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(8)
             .forwardZeroPowerAcceleration(-21.16128)
-            .lateralZeroPowerAcceleration(-44.73058);
+            .lateralZeroPowerAcceleration(-44.73058)
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.06, 0, 0.0, 0.01))
+            .headingPIDFCoefficients(new PIDFCoefficients(1.2, 0, 0.01, 0.01));
+
+
 
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
