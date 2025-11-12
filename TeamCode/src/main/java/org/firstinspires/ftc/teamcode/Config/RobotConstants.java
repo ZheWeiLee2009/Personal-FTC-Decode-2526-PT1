@@ -14,8 +14,8 @@ public class RobotConstants {
     public static double INTAKE_Half = 0.6;
     public static double INTAKE_OFF = 0;
 
-    public static double Gate_Off = 0.0;
-    public static double Gate_On = .27;
+    public static double Gate_Off = 0.37; // Axon
+    public static double Gate_On = .0;  // Axon
 
     public static double c_DriveSpeed = 0.9;
     public static double c_FL_WeightTuning = 1.0;
