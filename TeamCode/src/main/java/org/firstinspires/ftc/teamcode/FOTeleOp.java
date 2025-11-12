@@ -92,6 +92,8 @@ public class FOTeleOp extends OpMode {
         double[] powers = FOcalc.calculateFODMotorPowers(y,x,rx, odometry.robotPos().getHeading(AngleUnit.RADIANS));
         bot.setMotorPowers(powers[0], powers[1], powers[2], powers[3], SPEED_MULTIPLIER);
         // ************* FlyWheel **************//
+
+
         // Flywheel
         if (gamepad1.dpad_right) {
             bot.setFlywheel("full", flyWheelOffset);
@@ -99,8 +101,15 @@ public class FOTeleOp extends OpMode {
             bot.setFlywheel("half", flyWheelOffset);
         } else if (gamepad1.dpad_left) {
             bot.setFlywheel("off", 0);
+        }
 
-        // ************* Intake **************//
+        // Flywheel Offsets
+        if (gamepad2.circle) {
+            flyWheelOffset +=1;
+        } else if (gamepad2.square){
+            flyWheelOffset -=1;
+        }
+
         // Intake
         if (gamepad1.circle) {
             bot.setIntake("full");
@@ -110,7 +119,6 @@ public class FOTeleOp extends OpMode {
             bot.setIntake("off");
         }
 
-        // ************* Gate **************//
         // Gate single
         if (gamepad1.leftBumperWasPressed() && gateTimer.milliseconds() >= recoveryPause) {
             GateState = isWaitingGateState;
@@ -149,8 +157,8 @@ public class FOTeleOp extends OpMode {
                 cycleCounter = 0;
             }
         }
-
         // multi cycle Continuation
+
         if (!isWaitingGateState && cycleCounter > 0 && gateTimer.milliseconds() >= recoveryDelay) {
             GateState = false;
             bot.setServoPos(false);
@@ -163,17 +171,13 @@ public class FOTeleOp extends OpMode {
             bot.setServoPos(true);
         }
 
-        // ************* Telemetry **************//
         // Telemetry
-//        telemetry.addData("Flywheel: ", bot.Flywheel.getPower());
-//        telemetry.addData("Intake: ", bot.Intake.getPower());
-//        telemetry.addData("GatePOS: ", bot.Gate.getPosition());
-//        telemetry.addData("GateTimer:", gateTimer.milliseconds());
-//        telemetry.addData("GateState", GateState);
-//        telemetry.addData("GatePause:", recoveryPause);
-
-//        String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
-//        telemetry.addData("Position", data);
+        telemetry.addData("Flywheel: ", bot.Flywheel.getPower());
+        telemetry.addData("Intake: ", bot.Intake.getPower());
+        telemetry.addData("GatePOS: ", bot.Gate.getPosition());
+        telemetry.addData("GateTimer:", gateTimer.milliseconds());
+        telemetry.addData("GateState", GateState);
+        telemetry.addData("GatePause:", recoveryPause);
 
         telemetry.addData("\nFL: ", bot.leftFrontDrive.getPower());
         telemetry.addData("BL: ", bot.leftBackDrive.getPower());
@@ -183,7 +187,6 @@ public class FOTeleOp extends OpMode {
         telemetry.addData("\n\n Full Power: ", SPEED_MULTIPLIER);
 
         telemetry.update();
-
 
 
         // FTC Dashboard Telemetry + Graph
@@ -203,4 +206,4 @@ public class FOTeleOp extends OpMode {
         dashboardTelemetry.update();
 
     }
-}}
+}
