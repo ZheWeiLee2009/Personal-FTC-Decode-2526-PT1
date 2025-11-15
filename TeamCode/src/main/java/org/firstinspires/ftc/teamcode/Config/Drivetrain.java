@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Config;
 
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.Gate_Off;
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.Gate_On;
+import static org.firstinspires.ftc.teamcode.Config.RobotConstants.INTAKE_OUT;
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BL_WeightTuning;
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_BR_WeightTuning;
 import static org.firstinspires.ftc.teamcode.Config.RobotConstants.c_FL_WeightTuning;
@@ -124,6 +125,10 @@ public class Drivetrain {
                 Flywheel.setPower(FLYWHEEL_Half + offset);
                 flywheelState = "half";
                 break;
+            case "less-half":
+                Flywheel.setPower(FLYWHEEL_Half + offset - 0.1);
+                flywheelState = "less-half";
+                break;
             case "off":
                 Flywheel.setPower(FLYWHEEL_OFF + offset);
                 flywheelState = "off";
@@ -144,6 +149,10 @@ public class Drivetrain {
             case "half":
                 Intake.setPower(INTAKE_Half);
                 intakeState = "half";
+                break;
+            case "out":
+                Intake.setPower(INTAKE_OUT);
+                intakeState = "out";
                 break;
             case "off":
                 Intake.setPower(INTAKE_OFF);

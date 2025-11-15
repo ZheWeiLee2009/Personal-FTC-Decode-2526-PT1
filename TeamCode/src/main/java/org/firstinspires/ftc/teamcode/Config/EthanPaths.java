@@ -1,71 +1,82 @@
 package org.firstinspires.ftc.teamcode.Config;
 
-import com.bylazar.configurables.annotations.Configurable;
-import com.bylazar.telemetry.PanelsTelemetry;
-import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
-import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "Pedro Pathing Autonomous", group = "Autonomous")
-@Configurable // Panels
-public class EthanPaths extends OpMode {
+public class EthanPaths {
+    public PathChain Path1;
+    public PathChain Path2;
+    public PathChain Path3;
+    public PathChain Path4;
+    public PathChain Path5;
 
-    private TelemetryManager panelsTelemetry; // Panels Telemetry instance
-    public Follower follower; // Pedro Pathing follower instance
-    private int pathState; // Current autonomous path state (state machine)
-    private Paths paths; // Paths defined in the Paths class
+    // heading that aims the robot at the bucket (tune this angle on-field)
+    private static final double BUCKET_HEADING = Math.toRadians(131);
 
-    @Override
-    public void init() {
-        panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
+    public EthanPaths(Follower follower) {
+        Path1 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(23.931, 129.765),
+                                new Pose(48.481, 96.138),
+                                new Pose(58.178, 84.172)
+                        )
+                )
+                .setLinearHeadingInterpolation(Math.toRadians(143), BUCKET_HEADING)
+                .build();
 
-        follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(72, 8, Math.toRadians(90)));
+        Path2 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(58.178, 84.172),
+                                new Pose(43.530, 83.966),
+                                new Pose(27.089, 83.762)
+                        )
+                )
+                .setTangentHeadingInterpolation()
+                .build();
 
-        paths = new Paths(follower); // Build paths
+        // ⬇️ Return from first stack: always end facing BUCKET_HEADING
+        Path3 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(27.089, 83.762),
+                                new Pose(71.827, 75.462),
+                                new Pose(58.590, 83.966)
+                        )
+                )
+                // keep driving the same curve, but hold heading toward the bucket
+                .setConstantHeadingInterpolation(BUCKET_HEADING)
+                .build();
 
-        panelsTelemetry.debug("Status", "Initialized");
-        panelsTelemetry.update(telemetry);
-    }
+        Path4 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(58.590, 83.966),
+                                new Pose(84.808, 63.000),
+                                new Pose(27.446, 59.525)
+                        )
+                )
+                .setTangentHeadingInterpolation()
+                .build();
 
-    @Override
-    public void loop() {
-        follower.update(); // Update Pedro Pathing
-        pathState = autonomousPathUpdate(); // Update autonomous state machine
-
-        // Log values to Panels and Driver Station
-        panelsTelemetry.debug("Path State", pathState);
-        panelsTelemetry.debug("X", follower.getPose().getX());
-        panelsTelemetry.debug("Y", follower.getPose().getY());
-        panelsTelemetry.debug("Heading", follower.getPose().getHeading());
-        panelsTelemetry.update(telemetry);
-    }
-
-    public static class Paths {
-
-        public PathChain Path1;
-
-        public Paths(Follower follower) {
-            Path1 = follower
-                    .pathBuilder()
-                    .addPath(
-                            new BezierLine(new Pose(55.702, 7.633), new Pose(23.931, 35.897))
-                    )
-                    .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
-                    .build();
-        }
-    }
-
-    public int autonomousPathUpdate() {
-        // Add your state machine Here
-        // Access paths with paths.pathName
-        // Refer to the Pedro Pathing Docs (Auto Example) for an example state machine
-        return pathState;
+        // ⬇️ Return from second stack: also end facing BUCKET_HEADING
+        Path5 = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Pose(27.446, 59.525),
+                                new Pose(88.298, 63.542),
+                                new Pose(58.590, 84.172)
+                        )
+                )
+                .setConstantHeadingInterpolation(BUCKET_HEADING)
+                .build();
     }
 }

@@ -58,12 +58,12 @@ public class UniTeleOp extends OpMode {
 //        bot.odo.update();
 
         // Drive Speed
-        if (gamepad1.dpad_down) {
-            SPEED_MULTIPLIER = 0.5;
-        }
-        if (gamepad1.x) {
-            SPEED_MULTIPLIER = 0.9;
-        }
+//        if (gamepad1.dpad_down) {
+//            SPEED_MULTIPLIER = 0.5;
+//        }
+//        if (gamepad1.x) {
+//            SPEED_MULTIPLIER = 0.9;
+//        }
 
         // Directional Movements
         double y = -gamepad1.left_stick_y;
@@ -78,6 +78,8 @@ public class UniTeleOp extends OpMode {
             bot.setFlywheel("full", flyWheelOffset);
         } else if (gamepad1.dpad_up) {
             bot.setFlywheel("half", flyWheelOffset);
+        } else if (gamepad1.dpad_down) {
+            bot.setFlywheel("less-half", flyWheelOffset);
         } else if (gamepad1.dpad_left) {
             bot.setFlywheel("off", 0);
         }
@@ -96,7 +98,10 @@ public class UniTeleOp extends OpMode {
             bot.setIntake("half");
         } else if (gamepad1.square) {
             bot.setIntake("off");
+        } else if (gamepad1.cross) {
+            bot.setIntake("out");
         }
+
 
         // Gate single
         if (gamepad1.leftBumperWasPressed() && gateTimer.milliseconds() >= recoveryPause) {
@@ -151,6 +156,7 @@ public class UniTeleOp extends OpMode {
         }
 
         // Telemetry
+        telemetry.addData("Flywheel-offset:", flyWheelOffset);
         telemetry.addData("Flywheel: ", bot.Flywheel.getPower());
         telemetry.addData("Intake: ", bot.Intake.getPower());
         telemetry.addData("GatePOS: ", bot.Gate.getPosition());
